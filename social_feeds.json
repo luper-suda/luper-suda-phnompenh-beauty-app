@@ -1,0 +1,24 @@
+[
+    {
+        "id": "tt-scraped-1",
+        "source": "tiktok",
+        "store": "가디언 BKK1 (Guardian Pharmacy)",
+        "badge": "인기 틱톡 영상",
+        "content": "សេរ៉ូម Garnier Vitamin C ជួយឱ្យស្បែកមុខសភ្លឺថ្លាឥតខ្ចោះ! 🍋 តម្លៃត្រឹមតែ $13.50 ប៉ុណ្ណោះ! #cambodiabeauty #garnier",
+        "likes": "4.0K",
+        "price": "$13.50",
+        "productId": "prod-1",
+        "timestamp": "2026-07-19T06:09:45.653850Z"
+    },
+    {
+        "id": "tt-scraped-2",
+        "source": "tiktok",
+        "store": "소코스킨스 (SoKoSkins)",
+        "badge": "인기 틱톡 영상",
+        "content": "ម្សៅត្រជាក់ Snake Brand Cooling Powder ❄️ ជួយឱ្យត្រជាក់ខ្លួនពេញមួយថ្ងៃ មិនខ្លាចក្តៅ! តម្លៃ $3.80! #snakebrand",
+        "likes": "7.6K",
+        "price": "$3.80",
+        "productId": "prod-6",
+        "timestamp": "2026-07-19T06:09:45.654008Z"
+    }
+]
