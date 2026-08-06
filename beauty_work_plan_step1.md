@@ -44,13 +44,9 @@
 ## 2. 2-Stage 파이프라인 수집 모듈 명세
 
 ### ① Stage 1: 473개 마스터 샵 발굴 & 연락처 보완 모듈 (`work/discover_beauty_shops.py` & `work/fetch_gmaps_pin_addresses.py`)
-- **1차 획득 (Bing 검색 기반 시드 소셜 URL 발굴)**: Bing 검색 엔진(`site:facebook.com [프놈펜 상권명] [뷰티 키워드]`) 탐색으로 시드 소셜 샵 페이지 URL 1차 실측 발굴.
-- **2차 획득 (페이스북 하단 '유사 추천 샵' 연쇄 그래프 BFS Depth 2 디스커버리) ⭐️ [필수 코어]**: 1차 수집된 페이스북 페이지 하단의 **"페이스북 유사 추천 샵 (Facebook Suggested Pages / Related Pages / Pages You May Like)" 연쇄 추천 네트워크를 BFS (너비 우선 탐색) Depth 2로 추적**하여 473개 검증 실존 뷰티 샵 전수로 확장 발굴.
-- **연락처 & 지도 핀 4-Step 보완 (Google Maps & Contact Supplement)**:
-  - `phone_number`: 캄보디아 직통 이동통신 정규식 추출
-  - `address` / `pin_address`: 구글 지도 핀 카드의 실제 건물 번호(#) 및 크메르어/영문 도로명(`Street/ផ្លូវ`) 파싱
-  - `contact_channel`: Telegram(`t.me/`), WhatsApp(`wa.me/`), Messenger(`m.me/`) 직통 딥링크 100% 매핑
-  - `google_map_url`: 구글 지도 핀 검색 Direct URL 473개 100% 매핑
+- **1차 샵 URL 발굴 (Bing을 통한 페이스북 검색)**: Bing 검색 엔진(`site:facebook.com [프놈펜 상권명] [뷰티 키워드]`) 탐색으로 1차 시드 샵 페이스북 URL 발굴.
+- **2차 샵 URL 발굴 (페이스북 직접 타격 ➔ 하단 유사 추천 샵 URL 획득) ⭐️ [핵심]**: 페이스북을 통해 직접 1차 샵 URL로 접속(타격)한 후, 해당 페이지 하단에 실시간으로 노출되는 **'유사 추천 샵 (Suggested Pages / Related Pages)'의 딥링크 URL을 파싱하여 획득**하고 마스터 샵 전수로 확장.
+- **연락처 & 지도 핀 4-Step 보완 (Google Maps & Contact Supplement)**: 획득한 샵 URL을 바탕으로 구글 지도 핀 카드의 실제 건물 번호(#), 크메르어/영문 도로명 주소(`Street/ផ្លូវ`), 전화번호, 텔레그램 메신저 100% 보완 매핑.
 
 ### ② Stage 2: 최근 3주(21일) 동적 시간 윈도우 수집 모듈 (`work/scrape_stage2_timeline.py`)
 - **오늘 기준 최근 3주(21일) 동적 컷오프 (`posted_at >= Today - 21 days`)**:
