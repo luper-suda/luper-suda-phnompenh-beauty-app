@@ -1,19 +1,18 @@
-# Phnom Penh Beauty App - Step 4: 배포 및 무인 주 2회 자동 업데이트 매뉴얼 (최종 개편판)
+# Phnom Penh Beauty App - Step 4: 배포 및 무인 주 2회 자동 업데이트 매뉴얼 (최종 상용 반영판)
 > **파일명**: `beauty_work_plan_step4.md`  
 > **목적**: 페이스북/인스타그램 계정 정지 및 IP 차단을 100% 회피하고 $0의 비용으로 **주 2회(화/금) 클라우드 무인 자동 데이터 수집 및 파이어베이스 상용 웹 배포**를 완수하는 100% 무인 파이프라인 명세.
 
 ---
 
-## 1. 100% 무료 무인 클라우드 배치 스펙 (Bi-Weekly Batch Pipeline)
+## 1. 상용 시스템 및 호스팅 엔드포인트 정보
 
+* **상용 라이브 앱 주소**: **`https://tida-beauty-app.web.app`**
+* **깃허브 원격 코드 저장소**: **`https://github.com/luper-suda/luper-suda-phnompenh-beauty-app`**
+* **깃허브 계정명**: `luper-suda`
+* **파이어베이스 프로젝트 ID**: `oz-box` (타겟 호스팅 사이트: `tida-beauty-app`)
+* **운영 비용**: **$0 (100% 무료 무상 호스팅)**
 * **배치 실행기**: **GitHub Actions** (`.github/workflows/biweekly_scrape.yml`)
 * **실행 주기**: **주 2회 (매주 화요일 & 금요일 UTC 00:00 / 캄보디아 프놈펜 시간 오전 7:00)**
-  - **화요일**: 주중 일반 시세 및 신규 샵 타임라인 파싱.
-  - **금요일**: 주말 특가 및 프로모션 세일 기간 집중 파싱.
-* **상용 호스팅 서버**: **Firebase Hosting** (프로젝트 ID: `oz-box` / 타겟 사이트: `tida-beauty-app`)
-* **상용 라이브 앱 URL**: **`https://tida-beauty-app.web.app`**
-* **운영 비용**: **$0 (100% 무료)**
-* **특징**: 무리한 실시간 전체 검색을 지양하고 **공개 샵 URL 직접 타겟팅 주 2회 수집**으로 IP 차단 및 계정 정지 리스크 0% 달성.
 
 ---
 
@@ -103,7 +102,16 @@ jobs:
 
 ---
 
-## 5. 무상 웹 배포 및 운영 스펙 (Firebase Hosting)
+## 5. 수동 CLI 배포 및 깃허브 푸시 가이드
 
-1. **24시간 365일 무상 상용 웹 호스팅**: Firebase Hosting을 통해 **`https://tida-beauty-app.web.app`** 상용 엔드포인트 유지.
-2. **자동 동기화**: 주 2회 GitHub Actions가 최신 시세 수집 후 자동 커밋하고, Firebase Hosting으로 1초 만에 라이브 배포하여 최신 프놈펜 뷰티 샵의 최저가 데이터와 게시 날짜 기반 시계열 차트를 갱신함.
+### ① 로컬에서 파이어베이스 상용 사이트로 직접 배포
+```bash
+npx --prefix C:\workspace\oz-web-platform firebase deploy --only hosting --project oz-box
+```
+
+### ② 로컬 수치 수정 후 깃허브 저장소로 원격 커밋 & 푸시
+```bash
+git add .
+git commit -m "Feat: Update Tida Beauty App codebase and DB"
+git push origin main
+```
