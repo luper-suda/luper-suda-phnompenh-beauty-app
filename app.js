@@ -58,6 +58,55 @@ const I18N = {
   }
 };
 
+// Category i18n Dictionary (Khmer 🇰🇭 ↔ Korean 🇰🇷)
+const CATEGORY_I18N = {
+  km: {
+    "ALL": "ទាំងអស់ (All)",
+    "썬케어": "ថែទាំកម្តៅថ្ងៃ",
+    "세럼/에센스": "សេរ៉ូម",
+    "트러블케어": "ព្យាបាលមុន",
+    "수분/보습": "ផ្តល់សំណើម",
+    "토너/스킨": "តូណ័រ",
+    "토너패드": "បន្ទះតូណ័រ",
+    "마스크팩": "ម៉ាសបិទមុខ",
+    "클렌징": "លាងសម្អាត",
+    "색조": "គ្រឿងតុបតែង",
+    "베이스": "ម្សៅទ្រនាប់",
+    "아이": "តុបតែងភ្នែក",
+    "바디케어": "ថែទាំរាងកាយ",
+    "헤어케어": "ថែទាំសក់",
+    "K-뷰티": "K-Beauty",
+    "물광케어": "ផ្ទៃមុខរលោង",
+    "미백케어": "ថែទាំស្បែកស"
+  },
+  kr: {
+    "ALL": "전체 (All)",
+    "썬케어": "썬케어",
+    "세럼/에센스": "세럼/에센스",
+    "트러블케어": "트러블케어",
+    "수분/보습": "수분/보습",
+    "토너/스킨": "토너/스킨",
+    "토너패드": "토너패드",
+    "마스크팩": "마스크팩",
+    "클렌징": "클렌징",
+    "색조": "색조",
+    "베이스": "베이스",
+    "아이": "아이",
+    "바디케어": "바디케어",
+    "헤어케어": "헤어케어",
+    "K-뷰티": "K-뷰티",
+    "물광케어": "물광케어",
+    "미백케어": "미백케어"
+  }
+};
+
+function getCategoryTranslation(cat) {
+  if (CATEGORY_I18N[currentLang] && CATEGORY_I18N[currentLang][cat]) {
+    return CATEGORY_I18N[currentLang][cat];
+  }
+  return cat;
+}
+
 // Global App State
 let currentLang = 'km';
 let timelineFeeds = [];
@@ -157,6 +206,11 @@ function updateLanguageTexts() {
     const key = el.getAttribute("data-i18n-ph");
     if (langData[key]) el.placeholder = langData[key];
   });
+
+  renderCategoryPills();
+  renderActiveSaleCarousel();
+  renderPopularProductsGrid();
+  renderCompareResults();
 }
 
 let lastTabId = 'tab-home';
@@ -211,7 +265,7 @@ function renderCategoryPills() {
   
   container.innerHTML = categories.map(cat => `
     <button class="cat-pill ${cat === activeCategoryFilter ? 'active' : ''}" onclick="filterCategory('${cat}')">
-      ${cat === 'ALL' ? 'All (전체)' : cat}
+      ${getCategoryTranslation(cat)}
     </button>
   `).join("");
 }
@@ -295,7 +349,7 @@ function createProductCardHTML(feed) {
         </button>
       </div>
       <div class="card-body">
-        <span class="card-cat">${escapeHtml(feed.category_name)} • ${escapeHtml(feed.brand)}</span>
+        <span class="card-cat">${escapeHtml(getCategoryTranslation(feed.category_name))} • ${escapeHtml(feed.brand)}</span>
         <h4 class="card-title">${escapeHtml(feed.product_name)}</h4>
         <div class="card-shop" onclick="event.stopPropagation(); openShopDetail('${escapeHtml(feed.shop_name)}')">
           🏬 ${escapeHtml(feed.shop_name)} (${escapeHtml(feed.district || 'Phnom Penh')}) <span style="font-size:10px; color:var(--accent-pink); font-weight:700; text-decoration:underline;">(프로필 &rarr;)</span>
