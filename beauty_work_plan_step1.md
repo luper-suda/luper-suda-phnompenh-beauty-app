@@ -44,9 +44,8 @@
 ## 2. 2-Stage 파이프라인 수집 모듈 명세
 
 ### ① Stage 1: 473개 마스터 샵 발굴 & 연락처 보완 모듈 (`work/discover_beauty_shops.py` & `work/fetch_gmaps_pin_addresses.py`)
-- **1차 획득 (Dorking)**: `ddgs` 차단 면역 Python SDK 기반 키워드 탐색으로 492개 후보 샵 발굴.
-- **2차 연쇄 그래프 추적 (BFS Depth 2)**: 페이스북/틱톡 프로필 하단 "유사 추천 샵 (Suggested Pages)" 연쇄 추적으로 473개 100% 검증 실존 뷰티 샵 마스터 등록.
-- **4-Step 연락처 & 도로명 주소 확장**:
+- **1차 획득 (Bing 검색 기반 소셜 URL 발굴)**: Bing 검색 엔진(`site:facebook.com [프놈펜 상권명] [뷰티 키워드]`) 탐색으로 캄보디아 현지 소셜 샵 페이지 URL 1차 실측 발굴.
+- **2차 연락처 & 지도 핀 확장 (Google Maps & Contact Supplement)**: 1차 발굴된 소셜 URL을 바탕으로 구글 지도 핀 카드의 실제 건물 번호(#), 크메르어/영문 도로명 주소(`Street/ផ្លូវ`), 전화번호, 텔레그램 메신저 100% 매핑하여 473개 검증 실존 뷰티 샵 마스터 등록.
   - `phone_number`: 캄보디아 직통 이동통신 정규식 추출
   - `address` / `pin_address`: 구글 지도 핀 카드의 실제 건물 번호(#) 및 크메르어/영문 도로명(`Street/ផ្លូវ`) 파싱
   - `contact_channel`: Telegram(`t.me/`), WhatsApp(`wa.me/`), Messenger(`m.me/`) 직통 딥링크 100% 매핑
